@@ -1,5 +1,6 @@
 package br.com.api.f1.endpoints;
 
+import br.com.api.f1.models.Driver;
 import br.com.api.f1.models.DriversData;
 import br.com.api.f1.services.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,10 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(
@@ -34,6 +32,13 @@ public class DriverController {
                                @RequestParam(value = "page-size", required = false, defaultValue = "30") final int size) {
         log.info("Request - Consulta lista de pilotos. Paginação: [Página: {}, Quantidade: {}]", page, size);
         return service.getAll(page, size);
+    }
+
+    @GetMapping("/drivers/{id}")
+    @Operation(summary = "Consulta um piloto pelo seu id")
+    public Driver findById(@PathVariable(value = "id") final String id) {
+        log.info("Request - Consulta um piloto pelo id: {}", id);
+        return service.getById(id);
     }
 
 }

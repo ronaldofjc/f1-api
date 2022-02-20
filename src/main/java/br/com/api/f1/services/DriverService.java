@@ -2,6 +2,7 @@ package br.com.api.f1.services;
 
 import br.com.api.f1.dtos.DriversDto;
 import br.com.api.f1.dtos.ErgastDataDto;
+import br.com.api.f1.exception.BusinessException;
 import br.com.api.f1.infrastructure.rest.client.ErgastClient;
 import br.com.api.f1.models.Driver;
 import br.com.api.f1.models.DriversData;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DriverService {
@@ -21,6 +23,13 @@ public class DriverService {
         this.populateResponse = populateResponse;
     }
 
+    public Driver getById(final String id) {
+        final String driverId = id.concat(".json");
+        final ErgastDataDto dataDto = client.getDriverById(driverId);
+        return Objects.requireNonNull(dataDto.mrDataDto().driverTable()).drivers().stream().findFirst()
+            .map(d ->  new Driver(d.driverId(), d.url(), d.givenName(), d.familyName(), d.dateOfBirth(), d.nationality()))
+            .orElseThrow(() -> new BusinessException("Piloto não encontrado!"));
+    }
 
     public DriversData getAll(final int page, final int size) {
         final ErgastDataDto dataDto = client.getAllDrivers();
