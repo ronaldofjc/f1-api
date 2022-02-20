@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+spring:
+  profiles:
+    active: @spring.profile@
+  data:
+    web:
+      pageable:
+        page-parameter: page
+        size-parameter: page-size
+        one-indexed-parameters: true
+
+feign:
+  rest:
+    ergast:
+      name: ergastClient
+      url: https://ergast.com/api/f1
+
+application-description: @project.description@
+application-version: @project.version@
+
+gateway:
+  host: localhost
+  port: 8090
