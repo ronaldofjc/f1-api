@@ -15,4 +15,7 @@ public interface ErgastClient {
     @GetMapping(value = "/drivers/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ErgastDataDto getDriverById(@PathVariable("id") String id);
 
+    @GetMapping(value = "/drivers/{id}/driverStandings.json", produces = MediaType.APPLICATION_JSON_VALUE)
+    ErgastDataDto getDriverHistoric(@PathVariable("id") String id);
+
 }
