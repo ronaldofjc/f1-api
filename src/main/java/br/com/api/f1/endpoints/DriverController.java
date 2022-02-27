@@ -1,6 +1,7 @@
 package br.com.api.f1.endpoints;
 
 import br.com.api.f1.models.Driver;
+import br.com.api.f1.models.DriverHistory;
 import br.com.api.f1.models.DriversData;
 import br.com.api.f1.services.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +40,13 @@ public class DriverController {
     public Driver findById(@PathVariable(value = "id") final String id) {
         log.info("Request - Consulta um piloto pelo id: {}", id);
         return service.getById(id);
+    }
+
+    @GetMapping("/drivers/{id}/historic")
+    @Operation(summary = "Mostra o histórico do piloto na F1")
+    public DriverHistory findHistoryByDriverId(@PathVariable(value = "id") final String id) {
+        log.info("Request - Consulta histórico do piloto {} na F1", id);
+        return service.getDriverHistoric(id);
     }
 
 }

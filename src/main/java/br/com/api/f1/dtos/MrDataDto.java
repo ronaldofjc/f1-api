@@ -10,6 +10,7 @@ public record MrDataDto(
     String limit,
     String offset,
     String total,
-    @Nullable @JsonProperty("DriverTable") DriverTableDto driverTable
+    @Nullable @JsonProperty("DriverTable") DriverTableDto driverTable,
+    @Nullable @JsonProperty("StandingsTable") StandingTableDto standingTable
 ) {
 }
