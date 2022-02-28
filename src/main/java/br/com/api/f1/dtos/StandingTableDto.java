@@ -7,6 +7,7 @@ import java.util.List;
 
 public record StandingTableDto(
     @Nullable @JsonProperty("driverId") String driverId,
+    @Nullable @JsonProperty("season") String season,
     @Nullable @JsonProperty("StandingsLists") List<StandingDto> standings
 ) {
 }

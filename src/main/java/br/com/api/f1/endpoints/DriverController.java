@@ -3,6 +3,7 @@ package br.com.api.f1.endpoints;
 import br.com.api.f1.models.Driver;
 import br.com.api.f1.models.DriverHistory;
 import br.com.api.f1.models.DriversData;
+import br.com.api.f1.models.SeasonHistory;
 import br.com.api.f1.services.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,10 +44,17 @@ public class DriverController {
     }
 
     @GetMapping("/drivers/{id}/historic")
-    @Operation(summary = "Mostra o histórico do piloto na F1")
+    @Operation(summary = "Mostra o histórico de um piloto na F1")
     public DriverHistory findHistoryByDriverId(@PathVariable(value = "id") final String id) {
         log.info("Request - Consulta histórico do piloto {} na F1", id);
         return service.getDriverHistoric(id);
+    }
+
+    @GetMapping("/season/{year}/historic")
+    @Operation(summary = "Mostra o histórico de uma temporada da F1")
+    public SeasonHistory findSeasonHistory(@PathVariable(value = "year") final String year) {
+        log.info("Request - Consulta histórico da temporada {} da F1", year);
+        return service.getSeasonHistory(year);
     }
 
 }

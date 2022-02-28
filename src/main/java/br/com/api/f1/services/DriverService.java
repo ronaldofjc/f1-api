@@ -5,10 +5,7 @@ import br.com.api.f1.dtos.ErgastDataDto;
 import br.com.api.f1.dtos.StandingTableDto;
 import br.com.api.f1.exception.BusinessException;
 import br.com.api.f1.infrastructure.rest.client.ErgastClient;
-import br.com.api.f1.models.Driver;
-import br.com.api.f1.models.DriverHistory;
-import br.com.api.f1.models.DriverStanding;
-import br.com.api.f1.models.DriversData;
+import br.com.api.f1.models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,5 +45,11 @@ public class DriverService {
         final ErgastDataDto dataDto = client.getDriverHistoric(id);
         final StandingTableDto standingTableDto = Objects.requireNonNull(dataDto.mrDataDto().standingTable());
         return DriverHistory.of(dataDto.mrDataDto().total(), standingTableDto.standings());
+    }
+
+    public SeasonHistory getSeasonHistory(final String year) {
+        final ErgastDataDto dataDto = client.getSeasonHistoric(year);
+        final StandingTableDto standingTableDto = Objects.requireNonNull(dataDto.mrDataDto().standingTable());
+        return SeasonHistory.of(dataDto.mrDataDto().total(), standingTableDto.standings());
     }
 }
